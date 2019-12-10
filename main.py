@@ -30,11 +30,17 @@ def send_message(bot, title, url, is_negative):
 if __name__ == "__main__":
     load_dotenv()
     logging.basicConfig(level=logging.DEBUG)
-    token = os.getenv('dvmn_API_token')
-    bot_token = os.getenv('bot_API_token')
-    chat_id = os.getenv('chat_id')
-    pp = telegram.utils.request.Request(proxy_url='socks5://127.0.0.1:9150')
-    bot = telegram.Bot(token=bot_token, request=pp)
+    token = os.getenv('DVMN_API_TOKEN')
+    bot_token = os.getenv('TG_BOT_API_TOKEN')
+    chat_id = os.getenv('TG_CHAT_ID')
+    proxy_url = os.getenv('PROXY_URL')
+
+    if proxy_url:
+        pp = telegram.utils.request.Request(proxy_url=proxy_url)
+        bot = telegram.Bot(token=bot_token, request=pp)
+    else:
+        bot = telegram.Bot(token=bot_token)
+
     timestamp = None
 
     while True:
