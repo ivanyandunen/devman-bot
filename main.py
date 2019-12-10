@@ -51,11 +51,12 @@ if __name__ == "__main__":
                     timestamp = response['timestamp_to_request']
                     response = get_review_info(token, timestamp)
                 elif response['status'] == 'found':
+                    answer = response['new_attempts'][0]
                     send_message(
                         bot,
-                        response['new_attempts'][0]['lesson_title'],
-                        response['new_attempts'][0]['lesson_url'],
-                        response['new_attempts'][0]['is_negative']
+                        answer['lesson_title'],
+                        answer['lesson_url'],
+                        answer['is_negative']
                         )
                 else:
                     timestamp = None
