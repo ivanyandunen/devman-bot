@@ -6,11 +6,13 @@ import telegram
 
 
 def get_review_info(token, timestamp=None):
-    url = f'https://dvmn.org/api/long_polling/?timestamp={timestamp}'
+    url = 'https://dvmn.org/api/long_polling'
+    payload = {'timestamp': timestamp}
+
     headers = {
         'Authorization': f'Token {token}'
     }
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, params=payload)
     return response.json()
 
 
