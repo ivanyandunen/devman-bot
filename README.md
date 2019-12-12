@@ -15,18 +15,15 @@ pip install -r requirements.txt
 There are several parameters which have to be specified in `.env` file first:
 
 
-`dvmn_API_token` from [Devman API documentation](https://dvmn.org/api/docs/)
+`DVMN_API_TOKEN` from [Devman API documentation](https://dvmn.org/api/docs/)
 
-`bot_API_token` is provided by [BotFather](https://telegram.me/BotFather) after creating your bot.
+`TG_BOT_API_TOKEN` is provided by [BotFather](https://telegram.me/BotFather) after creating your bot.
 
-`chat_id` - your id in Telegram. Send message to @userinfobot in Telegram to get it.
+`TG_CHAT_ID` - your id in Telegram. Send message to @userinfobot in Telegram to get it.
 
+To work behind a proxy specify your proxy address in variable `PROXY_URL`
 
-To work behind a proxy specify your proxy address in variable `pp`
-
-    pp = telegram.utils.request.Request(proxy_url='socks5://127.0.0.1:9150')
-
-In the other case this variable should be deleted or commented.
+In the other case this variable should be deleted from .env.
 
 
 Run `python main.py`
