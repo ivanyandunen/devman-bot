@@ -13,7 +13,6 @@ def get_review_info(token, timestamp=None):
         'Authorization': f'Token {token}'
     }
     response = requests.get(url, headers=headers, params=payload)
-    print(response.status_code)
     response.raise_for_status()
     return response.json()
 
