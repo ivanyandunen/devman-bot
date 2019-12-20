@@ -48,21 +48,19 @@ if __name__ == "__main__":
 
     while True:
         try:
-            if not timestamp:
-                response = get_review_info(token)
-                if response['status'] == 'timeout':
-                    timestamp = response['timestamp_to_request']
-                    response = get_review_info(token, timestamp)
-                elif response['status'] == 'found':
-                    answer = response['new_attempts'][0]
-                    send_message(
-                        bot,
-                        answer['lesson_title'],
-                        answer['lesson_url'],
-                        answer['is_negative']
-                        )
-                else:
-                    timestamp = None
+            response = get_review_info(token, timestamp)
+            if response['status'] == 'timeout':
+                timestamp = response['timestamp_to_request']
+            elif response['status'] == 'found':
+                answer = response['new_attempts'][0]
+                send_message(
+                    bot,
+                    answer['lesson_title'],
+                    answer['lesson_url'],
+                    answer['is_negative']
+                    )
+                timestamp = None
+
         except requests.exceptions.ReadTimeout:
             logging.debug('Timeout')
             continue
