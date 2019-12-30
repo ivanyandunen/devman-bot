@@ -31,10 +31,10 @@ def send_message(bot, title, url, is_negative):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
-    token = os.environ('DVMN_API_TOKEN')
-    bot_token = os.environ('TG_BOT_API_TOKEN')
-    chat_id = os.environ('TG_CHAT_ID')
-    proxy_url = os.environ('PROXY_URL')
+    token = os.environ['DVMN_API_TOKEN']
+    bot_token = os.environ['TG_BOT_API_TOKEN']
+    chat_id = os.environ['TG_CHAT_ID']
+    proxy_url = os.environ['PROXY_URL']
 
     if proxy_url:
         pp = telegram.utils.request.Request(proxy_url=proxy_url)
