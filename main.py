@@ -7,7 +7,7 @@ import argparse
 
 def get_parser_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--proxy', help='Specify proxy address', default=None)
+    parser.add_argument('--proxy', help='Specify proxy address')
     return parser.parse_args()
 
 
