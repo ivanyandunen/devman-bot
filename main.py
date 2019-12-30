@@ -1,5 +1,4 @@
 import requests
-from dotenv import load_dotenv
 import os
 import logging
 import telegram
@@ -31,12 +30,11 @@ def send_message(bot, title, url, is_negative):
 
 
 if __name__ == "__main__":
-    load_dotenv()
     logging.basicConfig(level=logging.DEBUG)
-    token = os.getenv('DVMN_API_TOKEN')
-    bot_token = os.getenv('TG_BOT_API_TOKEN')
-    chat_id = os.getenv('TG_CHAT_ID')
-    proxy_url = os.getenv('PROXY_URL')
+    token = os.environ('DVMN_API_TOKEN')
+    bot_token = os.environ('TG_BOT_API_TOKEN')
+    chat_id = os.environ('TG_CHAT_ID')
+    proxy_url = os.environ('PROXY_URL')
 
     if proxy_url:
         pp = telegram.utils.request.Request(proxy_url=proxy_url)
