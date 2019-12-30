@@ -2,6 +2,13 @@ import requests
 import os
 import logging
 import telegram
+import argparse
+
+
+def get_parser_args():
+    parser = argparse.ArgumentParser
+    parser.add_argument('--proxy', help='Specify proxy address')
+    return parser.parse_args()
 
 
 def get_review_info(token, timestamp=None):
@@ -34,9 +41,8 @@ if __name__ == "__main__":
     token = os.environ['DVMN_API_TOKEN']
     bot_token = os.environ['TG_BOT_API_TOKEN']
     chat_id = os.environ['TG_CHAT_ID']
-    proxy_url = os.environ['PROXY_URL']
 
-    if proxy_url:
+    if get_parser_args().proxy:
         pp = telegram.utils.request.Request(proxy_url=proxy_url)
         bot = telegram.Bot(token=bot_token, request=pp)
     else:
