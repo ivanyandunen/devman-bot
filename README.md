@@ -12,8 +12,9 @@ pip install -r requirements.txt
 ```
 ## How to use
 
-There are several parameters which have to be specified in `.env` file first:
+<strong>Locally:</strong>
 
+There are several parameters which have to be specified in `.env` file first:
 
 `DVMN_API_TOKEN` from [Devman API documentation](https://dvmn.org/api/docs/)
 
@@ -25,6 +26,14 @@ There are several parameters which have to be specified in `.env` file first:
 Run `python main.py`
 
 To work behind a proxy specify your proxy address `python main.py --proxy %proxy address%`
+
+<strong>Deploying on Heroku:</strong>
+
+For deploying you need to have `Procfile` in the repo's root on Github containing string:
+```
+bot python3 main.py
+```
+And the same variables from `.env` file added to Config Vars
 
 ## Project Goals
 
