@@ -5,6 +5,18 @@ import telegram
 import argparse
 
 
+class TgHandler(logging.Handler):
+
+    def __init__(self, bot, chat_id):
+        super().__init__()
+        self.bot = bot
+        self.chat_id = chat_id
+
+    def emit(self, record):
+        log_entry = self.format(record)
+        self.bot.send_message(chat_id, text=log_entry)
+
+
 def get_parser_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--proxy', help='Specify proxy address')
@@ -37,7 +49,6 @@ def send_message(bot, title, url, is_negative):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
     token = os.environ['DVMN_API_TOKEN']
     bot_token = os.environ['TG_BOT_API_TOKEN']
     chat_id = os.environ['TG_CHAT_ID']
@@ -48,7 +59,16 @@ if __name__ == "__main__":
     else:
         bot = telegram.Bot(token=bot_token)
 
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    handler = TgHandler(bot, chat_id)
+    formatter = logging.Formatter('%(levelname)s  %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
     timestamp = None
+
+    logger.info('The bot has started')
 
     while True:
         try:
@@ -66,14 +86,14 @@ if __name__ == "__main__":
                 timestamp = None
 
         except requests.exceptions.ReadTimeout:
-            logging.debug('Timeout')
+            logger.warning('Timeout')
             continue
         except ConnectionError:
-            logging.debug('No connection')
+            logger.warning('No connection')
             continue
         except KeyboardInterrupt:
-            logging.debug('Connection closed by user')
+            logger.warning('Connection closed by user')
             break
         except requests.exceptions.HTTPError:
-            logging.debug('404 Client Error')
+            logger.warning('404 Client Error')
             break
