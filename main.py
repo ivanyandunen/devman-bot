@@ -52,8 +52,8 @@ if __name__ == "__main__":
     token = os.environ['DVMN_API_TOKEN']
     bot_token = os.environ['TG_BOT_API_TOKEN']
     chat_id = os.environ['TG_CHAT_ID']
-
-    if get_parser_args().proxy:
+    proxy_url = get_parser_args().proxy
+    if proxy_url:
         pp = telegram.utils.request.Request(proxy_url=proxy_url)
         bot = telegram.Bot(token=bot_token, request=pp)
     else:
@@ -77,6 +77,7 @@ if __name__ == "__main__":
                 timestamp = response['timestamp_to_request']
             elif response['status'] == 'found':
                 answer = response['new_attempts'][0]
+                print(answer)
                 send_message(
                     bot,
                     answer['lesson_title'],
